@@ -22,7 +22,7 @@
     TAGGIT_AUTOSUGGEST_STATIC_BASE_URL:
         Instead of collecting and serving the static files directly, you can
         also set this variable to your static base URL somewhere else.
-    TAGGIT_AUTOCOMPLETE_MAX_SUGGESTIONS (Defaults to 20): 
+    TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20): 
         The amount of suggestions is limited, you can raise or lower the limit
         of default 20 using this setting.
 
