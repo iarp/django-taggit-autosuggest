@@ -1,5 +1,5 @@
 /* AutoSuggest CSS - Version 1.2 */
-fieldset.module .row {
+fieldset.module .tags{
     overflow: visible;
 }
 fieldset.module .row:before, fieldset.module .row:after {  content: "\0020"; display: block; height: 0; visibility: hidden;	 } 
