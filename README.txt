@@ -25,7 +25,10 @@
     TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20): 
         The amount of suggestions is limited, you can raise or lower the limit
         of default 20 using this setting.
-
+    TAGGIT_CSS_FILENAME (Defaults to 'autoSuggest.css'):
+        Set the CSS file which best fits your site elements.
+	The CSS file have to be in 'jquery-autosuggest/css/'.
+	
 *** Usage ***
 To enable autosuggesting Tags, just let the tagged model use TaggableManager:
     from django.db import models

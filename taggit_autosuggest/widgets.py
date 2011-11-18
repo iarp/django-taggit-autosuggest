@@ -72,10 +72,11 @@ class TagAutoSuggest(forms.TextInput):
         return result_html + widget_html + mark_safe(js)
     
     class Media:
+        css_filename = getattr(settings, 'TAGGIT_CSS_FILENAME', 'autoSuggest.css')
         js_base_url = getattr(settings, 'TAGGIT_AUTOSUGGEST_STATIC_BASE_URL',
             '%sjquery-autosuggest' % settings.STATIC_URL)
         css = {
-            'all': ('%s/css/autoSuggest.css' % js_base_url,)
+            'all': ('%s/css/%s' % (js_base_url, css_filename),)
         }
         js = (
             '%s/js/jquery.autoSuggest.minified.js' % js_base_url,
