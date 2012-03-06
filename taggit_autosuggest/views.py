@@ -1,11 +1,13 @@
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils import simplejson as json
-from taggit.models import Tag
-
+from django.db.models.loading import get_model
 
 MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 
+# define the default models for tags and tagged items
+TAG_MODEL = getattr(settings, 'TAGGIT_AUTOSUGGEST_MODEL', ('taggit', 'Tag'))
+TAG_MODEL = get_model(*TAG_MODEL)
 
 def list_tags(request):
     """
@@ -20,7 +22,7 @@ def list_tags(request):
     except ValueError:
         limit = MAX_SUGGESTIONS
 
-    tag_name_qs = Tag.objects.filter(name__istartswith=query).\
+    tag_name_qs = TAG_MODEL.objects.filter(name__istartswith=query).\
         values_list('name', flat=True)
     data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
 
