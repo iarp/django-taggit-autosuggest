@@ -1,2 +1,2 @@
-recursive-include taggit_suggest/static *
-recursive-include taggit_suggest/locale *
+recursive-include taggit_autosuggest/static *
+recursive-include taggit_autosuggest/locale *
