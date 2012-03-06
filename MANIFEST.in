@@ -1,2 +1,2 @@
-recursive-include coop_geo/static *
-recursive-include coop_geo/locale *
+recursive-include taggit_suggest/static *
+recursive-include taggit_suggest/locale *
