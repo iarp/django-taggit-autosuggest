@@ -1,0 +1,2 @@
+recursive-include coop_geo/static *
+recursive-include coop_geo/locale *
