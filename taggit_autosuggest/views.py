@@ -20,7 +20,7 @@ def list_tags(request):
     except ValueError:
         limit = MAX_SUGGESTIONS
 
-    tag_name_qs = Tag.objects.filter(name__istartswith=query).\
+    tag_name_qs = Tag.objects.filter(name__icontains=query).\
         values_list('name', flat=True)
     data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
 
