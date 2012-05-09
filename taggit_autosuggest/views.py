@@ -9,6 +9,7 @@ MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 TAG_MODEL = getattr(settings, 'TAGGIT_AUTOSUGGEST_MODEL', ('taggit', 'Tag'))
 TAG_MODEL = get_model(*TAG_MODEL)
 
+
 def list_tags(request):
     """
     Returns a list of JSON objects with a `name` and a `value` property that
@@ -22,7 +23,7 @@ def list_tags(request):
     except ValueError:
         limit = MAX_SUGGESTIONS
 
-    tag_name_qs = TAG_MODEL.objects.filter(name__istartswith=query).\
+    tag_name_qs = TAG_MODEL.objects.filter(name__icontains=query).\
         values_list('name', flat=True)
     data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
 
