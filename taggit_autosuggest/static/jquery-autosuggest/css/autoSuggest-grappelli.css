@@ -1,10 +1,7 @@
 /* AutoSuggest CSS - Version 1.2 */
-fieldset.module .tags{
+.grp-row.grp-cells-1.tags {
     overflow: visible;
 }
-fieldset.module .row:before, fieldset.module .row:after {  content: "\0020"; display: block; height: 0; visibility: hidden;	 } 
-fieldset.module .row:after { clear: both; }
-fieldset.module .row { zoom: 1; }
 
 ul.as-selections {
 	list-style-type: none;
