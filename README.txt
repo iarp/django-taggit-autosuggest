@@ -28,9 +28,9 @@
     TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
         Set the CSS file which best fits your site elements.
 	    The CSS file have to be in 'jquery-autosuggest/css/'.
-	TAGGIT_AUTOSUGGEST_MODEL (Defaults to tuple('taggit','Tag'))   
-	    The Tag model used, if you happen to use Taggit custom tagging.
-	
+    TAGGIT_AUTOSUGGEST_MODEL (Defaults to tuple('taggit','Tag'))   
+        The Tag model used, if you happen to use Taggit custom tagging.
+
 *** Usage ***
 To enable autosuggesting Tags, just let the tagged model use TaggableManager:
     from django.db import models
@@ -40,3 +40,7 @@ To enable autosuggesting Tags, just let the tagged model use TaggableManager:
     class SomeModel(models.Model):
 
         tags = TaggableManager()
+
+
+There's a demo project using Grappelli bundled, you can run it and browse
+/admin/ using the username 'demo' and password 'demo'.
