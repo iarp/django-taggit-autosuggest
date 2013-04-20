@@ -16,7 +16,7 @@ class TagAutoSuggest(forms.TextInput):
     input_type = 'text'
 
     def render(self, name, value, attrs=None):
-        if value is not None and not isinstance(value, basestring):
+        if hasattr(value, "select_related"):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
 
