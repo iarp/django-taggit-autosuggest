@@ -21,5 +21,6 @@ def edit_string_for_tags(tags):
             names.append('"%s"' % name)
         else:
             names.append(name)
+    names.sort()
     glue = u', '
-    return glue.join(sorted(names))
+    return glue.join(names)
