@@ -6,15 +6,21 @@ from django.db.models.loading import get_model
 MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 
 # define the default models for tags and tagged items
-TAG_MODEL = getattr(settings, 'TAGGIT_AUTOSUGGEST_MODEL', ('taggit', 'Tag'))
-TAG_MODEL = get_model(*TAG_MODEL)
+TAG_MODELS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MODELS', {'default': ('taggit', 'Tag')})
+if not type(TAG_MODELS) == dict:
+    TAG_MODELS = {'default': TAG_MODELS}
 
 
-def list_tags(request):
+def list_tags(request, tagmodel=None):
     """
     Returns a list of JSON objects with a `name` and a `value` property that
     all start like your query string `q` (not case sensitive).
     """
+    if not tagmodel or tagmodel not in TAG_MODELS:
+        TAG_MODEL = get_model(*TAG_MODELS['default'])
+    else:
+        TAG_MODEL = get_model(*TAG_MODELS[tagmodel])
+        
     query = request.GET.get('q', '')
     limit = request.GET.get('limit', MAX_SUGGESTIONS)
     try:

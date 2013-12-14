@@ -2,16 +2,18 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagField
 from taggit.managers import TaggableManager as BaseTaggableManager
 from taggit_autosuggest.widgets import TagAutoSuggest
+from django.utils.text import capfirst
 
 
 class TaggableManager(BaseTaggableManager):
 
     def formfield(self, form_class=TagField, **kwargs):
+        tagmodel = "%s.%s" % (self.rel.to._meta.app_label, self.rel.to._meta.module_name)
         defaults = {
-            "label": _("Tags"),
-            "help_text": _("A comma-separated list of tags."),
+            "label": capfirst(self.verbose_name),
+            "help_text": self.help_text,
             "required": not self.blank,
-            "widget": TagAutoSuggest(),
+            "widget": TagAutoSuggest(tagmodel=tagmodel),
         }
         defaults.update(kwargs)
 

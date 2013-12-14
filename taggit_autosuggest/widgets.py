@@ -14,11 +14,18 @@ MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 
 class TagAutoSuggest(forms.TextInput):
     input_type = 'text'
+    tagmodel = None
+    
+    def __init__(self, tagmodel, *args, **kwargs):
+        self.tagmodel = tagmodel
+        return super(TagAutoSuggest, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
         if value is not None and not isinstance(value, basestring):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
+            
+        autosuggest_url = reverse('taggit_autosuggest-list', kwargs={'tagmodel': self.tagmodel})
 
         result_attrs = copy.copy(attrs)
         result_attrs['type'] = 'hidden'
@@ -63,7 +70,7 @@ class TagAutoSuggest(forms.TextInput):
             </script>""" % {
                 'result_id': result_attrs['id'],
                 'widget_id': widget_attrs['id'],
-                'url': reverse('taggit_autosuggest-list'),
+                'url': autosuggest_url,
                 'start_text': _("Enter Tag Here"),
                 'empty_text': _("No Results"),
                 'limit_text': _('No More Selections Are Allowed'),
