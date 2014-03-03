@@ -77,14 +77,7 @@ class TagAutoSuggest(forms.TextInput):
                     $('ul.as-selections li.as-original input').addClass('vTextField');
 
                     $('#%(result_id)s').parents().find('form').submit(function (){
-                        tags_as_string = $("#as-values-%(widget_id)s").val()
-                            .split(',')
-                            .filter(function(v) { return Boolean(v); })
-                            .map(function(v) { return $.trim(v); })
-                            .map(function(v) { return v.toProperCase(); })
-                            .toUnique()
-                            .sort()
-                            .join(', ');
+                        tags_as_string = $("#as-values-%(widget_id)s").val();
                         $("#%(widget_id)s").remove();
                         $("#%(result_id)s").val(tags_as_string);
                     });
