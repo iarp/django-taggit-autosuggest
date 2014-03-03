@@ -35,6 +35,29 @@ class TagAutoSuggest(forms.TextInput):
             (function ($) {
                 var tags_as_string;
 
+                String.prototype.toProperCase = function () {
+                    return this.replace(/\w\S*/g, function(txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    });
+                };
+
+                Array.prototype.toUnique = function() {
+                    var dict = {},
+                        arrayLength = this.length,
+                        elem,
+                        i,
+                        key,
+                        uniqueArray = [];
+                    for (i = 0; i < arrayLength; i++) {
+                        elem = this[i];
+                        dict[elem] = elem;
+                    }
+                    for (key in dict) {
+                        uniqueArray.push(key);
+                    }
+                    return uniqueArray;
+                };
+
                 $(document).ready(function (){
                     tags_as_string = $('#%(result_id)s').val();
 
@@ -54,7 +77,14 @@ class TagAutoSuggest(forms.TextInput):
                     $('ul.as-selections li.as-original input').addClass('vTextField');
 
                     $('#%(result_id)s').parents().find('form').submit(function (){
-                        tags_as_string = $("#as-values-%(widget_id)s").val();
+                        tags_as_string = $("#as-values-%(widget_id)s").val()
+                            .split(',')
+                            .filter(function(v) { return Boolean(v); })
+                            .map(function(v) { return $.trim(v); })
+                            .map(function(v) { return v.toProperCase(); })
+                            .toUnique()
+                            .sort()
+                            .join(', ');
                         $("#%(widget_id)s").remove();
                         $("#%(result_id)s").val(tags_as_string);
                     });
@@ -70,7 +100,7 @@ class TagAutoSuggest(forms.TextInput):
                 'retrieve_limit': MAX_SUGGESTIONS,
             }
         return result_html + widget_html + mark_safe(js)
-    
+
     class Media:
         css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME',
             'autoSuggest.css')
