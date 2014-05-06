@@ -16,16 +16,16 @@ class TagAutoSuggest(forms.TextInput):
     input_type = 'text'
 
     def render(self, name, value, attrs=None):
-        if value is not None and not isinstance(value, basestring):
+        if hasattr(value, "select_related"):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
 
-        result_attrs = copy.copy(attrs)
+        result_attrs = copy.copy(attrs) if attrs else {}
         result_attrs['type'] = 'hidden'
         result_html = super(TagAutoSuggest, self).render(name, value,
             result_attrs)
 
-        widget_attrs = copy.copy(attrs)
+        widget_attrs = copy.copy(attrs) if attrs else {}
         widget_attrs['id'] += '__tagautosuggest'
         widget_html = super(TagAutoSuggest, self).render(name, value,
             widget_attrs)
