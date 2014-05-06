@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from models import Note
-from models import Post
+from posts.models import Note
+from posts.models import Post
 
 
 class NoteInline(admin.TabularInline):
