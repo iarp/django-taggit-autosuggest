@@ -61,17 +61,20 @@ class TagAutoSuggest(forms.TextInput):
                 $(document).ready(function (){
                     tags_as_string = $('#%(result_id)s').val();
 
-                    $("#%(widget_id)s").autoSuggest("%(url)s", {
-                        asHtmlID: "%(widget_id)s",
-                        startText: "%(start_text)s",
-                        emptyText: "%(empty_text)s",
-                        limitText: "%(limit_text)s",
-                        preFill: tags_as_string,
-                        queryParam: 'q',
-                        retrieveLimit: %(retrieve_limit)d,
-                        minChars: 1,
-                        neverSubmit: true
-                    });
+                    /* Be sure to instantiate it a single time */
+                    if (typeof($("#as-selections-" + "%(widget_id)s").get(0)) === 'undefined') {
+                        $("#%(widget_id)s").autoSuggest("%(url)s", {
+                            asHtmlID: "%(widget_id)s",
+                            startText: "%(start_text)s",
+                            emptyText: "%(empty_text)s",
+                            limitText: "%(limit_text)s",
+                            preFill: tags_as_string,
+                            queryParam: 'q',
+                            retrieveLimit: %(retrieve_limit)d,
+                            minChars: 1,
+                            neverSubmit: true
+                        });
+                    }
 
                     $('.as-selections').addClass('vTextField');
                     $('ul.as-selections li.as-original input').addClass('vTextField');
