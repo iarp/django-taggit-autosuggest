@@ -7,7 +7,6 @@ fieldset.module .row:after { clear: both; }
 fieldset.module .row { zoom: 1; }
 
 ul.as-selections {
-	list-style-type: none;
 	padding: 4px 15px 4px 4px;
 	margin: 0;
 	overflow: auto;
@@ -18,6 +17,7 @@ ul.as-selections.loading {
 }
 
 ul.as-selections li {
+	list-style-type: none;
 	float: left;
 	margin: 1px 4px 1px 0;
 }
@@ -96,12 +96,11 @@ ul.as-selections li.as-original {
 }
 
 ul.as-selections li.as-original input {
-    height: 14px !important;
+	height: 14px !important;
 }
 
 ul.as-list {
 	position: absolute;
-	list-style-type: none;
 	background-color: #fff;
 	background-color: rgba(255,255,255,0.95);
 	z-index: 2;
@@ -111,6 +110,10 @@ ul.as-list {
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
+}
+
+ul.as-list li {
+	list-style-type: none;
 }
 
 li.as-result-item, li.as-message {
