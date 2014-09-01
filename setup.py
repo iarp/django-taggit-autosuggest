@@ -7,7 +7,7 @@ long_description = open('README.txt').read()
 
 setup(
     name='django-taggit-autosuggest',
-    version='0.2.4',
+    version='0.2.5',
     description='Autosuggestions for django-taggit',
     long_description=long_description,
     author='Fabian Topfstedt',
