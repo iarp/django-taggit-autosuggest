@@ -28,7 +28,7 @@
     TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
         Set the CSS file which best fits your site elements.
 	    The CSS file have to be in 'jquery-autosuggest/css/'.
-    TAGGIT_AUTOSUGGEST_MODEL (Defaults to tuple('taggit','Tag'))   
+    TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))   
         The Tag model used, if you happen to use Taggit custom tagging.
 
 *** Usage ***
