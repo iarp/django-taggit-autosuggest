@@ -1,8 +1,8 @@
 from django.utils.text import capfirst
+
 from taggit.forms import TagField
 from taggit.managers import TaggableManager as BaseTaggableManager
 from taggit_autosuggest.widgets import TagAutoSuggest
-from django.utils.text import capfirst
 
 
 class TaggableManager(BaseTaggableManager):
