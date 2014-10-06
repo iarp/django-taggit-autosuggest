@@ -8,7 +8,7 @@ from taggit_autosuggest.widgets import TagAutoSuggest
 class TaggableManager(BaseTaggableManager):
 
     def formfield(self, form_class=TagField, **kwargs):
-        tagmodel = "%s.%s" % (self.rel.to._meta.app_label, self.rel.to._meta.module_name)
+        tagmodel = "%s.%s" % (self.rel.to._meta.app_label, self.rel.to._meta.object_name.lower())
         defaults = {
             "label": capfirst(self.verbose_name),
             "help_text": self.help_text,
