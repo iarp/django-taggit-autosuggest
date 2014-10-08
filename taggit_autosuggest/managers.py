@@ -10,7 +10,10 @@ def _model_name(model):
     """
     The meta.module_name property got deprecated in favor of meta.model_name.
     """
-    return model.meta.module_name if VERSION < (1, 7) else model.meta.model_name
+    if VERSION < (1, 7):
+        return model._meta.module_name
+    else:
+        return model._meta.model_name
 
 
 class TaggableManager(BaseTaggableManager):
