@@ -59,5 +59,7 @@ or by adding the form/formset's media attribute to the template's context
     # In the template:
     {{ media }}
 
+(Either way, of course, the template must also include a jQuery library.)
+
 There's a demo project using Grappelli bundled, you can run it and browse
 /admin/ using the username 'demo' and password 'demo'.
