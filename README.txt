@@ -22,13 +22,13 @@
     TAGGIT_AUTOSUGGEST_STATIC_BASE_URL:
         Instead of collecting and serving the static files directly, you can
         also set this variable to your static base URL somewhere else.
-    TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20): 
+    TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20):
         The amount of suggestions is limited, you can raise or lower the limit
         of default 20 using this setting.
     TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
         Set the CSS file which best fits your site elements.
 	    The CSS file have to be in 'jquery-autosuggest/css/'.
-    TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))   
+    TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))
         The Tag model used, if you happen to use Taggit custom tagging.
 
 *** Usage ***
@@ -41,6 +41,23 @@ To enable autosuggesting Tags, just let the tagged model use TaggableManager:
 
         tags = TaggableManager()
 
+To use autosuggesting Tags outside of Django Admin pages ensure that the static
+files are added to the template's <head>, either hardcoded, e.g.
+
+    <link href="{{ STATIC_URL }}jquery-autosuggest/css/autoSuggest-upshot.css"
+        type="text/css" media="all" rel="stylesheet" />
+    <script type="text/javascript"
+        src="{{ STATIC_URL }}jquery-autosuggest/js/jquery.autoSuggest.minified.js">
+        </script>
+
+or by adding the form/formset's media attribute to the template's context
+(this is what happens in Django Admin), e.g.
+
+    # In the view:
+    context.update({'media': form.media})  # or however you add to the context
+
+    # In the template:
+    {{ media }}
 
 There's a demo project using Grappelli bundled, you can run it and browse
 /admin/ using the username 'demo' and password 'demo'.
