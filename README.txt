@@ -61,5 +61,18 @@ or by adding the form/formset's media attribute to the template's context
 
 (Either way, of course, the template must also include a jQuery library.)
 
+If Taggit custom tagging is used the autosuggested Tags can be filtered by
+attributes of the request object after the name filtering. To enable this
+the custom tag model should have a function called request_filter which
+takes a request object and returns a django.db.models.Q object, e.g.
+
+    from django.db import models
+
+    class MyTag(TagBase):
+
+        @staticmethod
+        def request_filter(request):
+            return models.Q(...)
+
 There's a demo project using Grappelli bundled, you can run it and browse
 /admin/ using the username 'demo' and password 'demo'.
