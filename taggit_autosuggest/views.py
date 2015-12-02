@@ -2,7 +2,15 @@ import json
 
 from django.conf import settings
 from django.http import HttpResponse
-from django.db.models.loading import get_model
+
+try:
+    # django >= 1.7
+    from django.apps import apps
+    get_model = apps.get_model
+except ImportError:
+    # django < 1.7
+    from django.db.models import get_model
+
 
 MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 
