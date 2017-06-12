@@ -28,9 +28,10 @@ class TagAutoSuggest(forms.TextInput):
         autosuggest_url = reverse('taggit_autosuggest-list', kwargs={'tagmodel': self.tagmodel})
 
         result_attrs = copy.copy(attrs) if attrs else {}
-        result_attrs['type'] = 'hidden'
+        initial_input_type, self.input_type = self.input_type, 'hidden'
         result_html = super(TagAutoSuggest, self).render(name, value,
             result_attrs)
+        self.input_type = initial_input_type
 
         widget_attrs = copy.copy(attrs) if attrs else {}
         widget_attrs['id'] += '__tagautosuggest'
