@@ -19,8 +19,12 @@ def _model_name(model):
 class TaggableManager(BaseTaggableManager):
 
     def formfield(self, form_class=TagField, **kwargs):
-        tagmodel = "%s.%s" % (self.rel.to._meta.app_label,
-                              _model_name(self.rel.to))
+        if hasattr(self, 'rel'): # Django < 1.9
+            related_model = self.rel.to
+        else: # Django >= 1.9
+            related_model = self.remote_field.model
+        tagmodel = "%s.%s" % (related_model._meta.app_label,
+                              _model_name(related_model))
         defaults = {
             "label": capfirst(self.verbose_name),
             "help_text": self.help_text,
