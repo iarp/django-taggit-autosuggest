@@ -18,28 +18,38 @@ MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 class TagAutoSuggest(forms.TextInput):
     input_type = 'text'
     tagmodel = None
-    
+
     def __init__(self, tagmodel, *args, **kwargs):
         self.tagmodel = tagmodel
         return super(TagAutoSuggest, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, *args, **kwargs):
         if hasattr(value, "select_related"):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
-            
+
         autosuggest_url = reverse('taggit_autosuggest-list', kwargs={'tagmodel': self.tagmodel})
 
         result_attrs = copy.copy(attrs) if attrs else {}
         initial_input_type, self.input_type = self.input_type, 'hidden'
-        result_html = super(TagAutoSuggest, self).render(name, value,
-            result_attrs)
+        result_html = super(TagAutoSuggest, self).render(
+            name,
+            value,
+            result_attrs,
+            *args,
+            **kwargs
+        )
         self.input_type = initial_input_type
 
         widget_attrs = copy.copy(attrs) if attrs else {}
         widget_attrs['id'] += '__tagautosuggest'
-        widget_html = super(TagAutoSuggest, self).render(name, value,
-            widget_attrs)
+        widget_html = super(TagAutoSuggest, self).render(
+            name,
+            value,
+            widget_attrs,
+            *args,
+            **kwargs
+        )
 
         js = u"""
             <script type="text/javascript">
