@@ -27,6 +27,8 @@ class TagAutoSuggest(forms.TextInput):
         if hasattr(value, "select_related"):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
+        elif not isinstance(value, str):
+            value = edit_string_for_tags(value)
 
         autosuggest_url = reverse('taggit_autosuggest-list', kwargs={'tagmodel': self.tagmodel})
 
