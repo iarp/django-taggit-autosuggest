@@ -23,7 +23,7 @@ class TagAutoSuggest(forms.TextInput):
         self.tagmodel = tagmodel
         return super(TagAutoSuggest, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None, *args, **kwargs):
+    def render(self, name, value, attrs=None, renderer=None, *args, **kwargs):
         if hasattr(value, "select_related"):
             tags = [o.tag for o in value.select_related("tag")]
             value = edit_string_for_tags(tags)
@@ -38,6 +38,7 @@ class TagAutoSuggest(forms.TextInput):
             name,
             value,
             result_attrs,
+            renderer=renderer,
             *args,
             **kwargs
         )
@@ -49,6 +50,7 @@ class TagAutoSuggest(forms.TextInput):
             name,
             value,
             widget_attrs,
+            renderer=renderer,
             *args,
             **kwargs
         )
