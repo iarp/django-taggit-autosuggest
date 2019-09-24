@@ -1,15 +1,10 @@
 *** Credits ***
     This project is directly based on those projects:
-    * Alex Gaynor
-        * https://github.com/alex/django-taggit
-    * Ludwik Trammer:
-        * http://code.google.com/p/django-tagging-autocomplete/
-    * Jeremy Epstein:
-        * https://github.com/Jaza/django-taggit-autocomplete
-    * Flavio Curella:
-        * https://github.com/fcurella/django-taggit-autocomplete
-    * Drew Wilson:
-        * http://code.drewwilson.com/entry/autosuggest-jquery-plugin
+    * Alex Gaynor, https://github.com/alex/django-taggit
+    * Ludwik Trammer, http://code.google.com/p/django-tagging-autocomplete/
+    * Jeremy Epstein, https://github.com/Jaza/django-taggit-autocomplete
+    * Flavio Curella, https://github.com/fcurella/django-taggit-autocomplete
+    * Drew Wilson, http://code.drewwilson.com/entry/autosuggest-jquery-plugin
 
 *** Installation ***
    * Add "taggit_autosuggest" to your INSTALLED_APPS in your project settings
@@ -27,12 +22,13 @@
         of default 20 using this setting.
     TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
         Set the CSS file which best fits your site elements.
-	    The CSS file have to be in 'jquery-autosuggest/css/'.
+            The CSS file have to be in 'jquery-autosuggest/css/'.
     TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))
         The Tag model used, if you happen to use Taggit custom tagging.
 
 *** Usage ***
 To enable autosuggesting Tags, just let the tagged model use TaggableManager:
+
     from django.db import models
     from taggit_autosuggest.managers import TaggableManager
 
@@ -72,6 +68,7 @@ takes a request object and returns a django.db.models.Q object, e.g.
 
         @staticmethod
         def request_filter(request):
+
             return models.Q(...)
 
 There's a demo project using Grappelli bundled, you can run it and browse
