@@ -131,5 +131,6 @@ class TagAutoSuggest(forms.TextInput):
             'all': ('%s/css/%s' % (js_base_url, css_filename),)
         }
         js = (
+            'admin/js/jquery.init.js',
             '%s/js/jquery.autoSuggest.minified.js' % js_base_url,
         )
