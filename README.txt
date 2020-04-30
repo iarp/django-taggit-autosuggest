@@ -1,3 +1,8 @@
+Disclaimer: This project is unmaintained since I don't use it myself anymore
+and I did not find a maintainer within the user base so far.
+However, I'm happy to accept pull requests!
+
+
 *** Credits ***
     This project is directly based on those projects:
     * Alex Gaynor, https://github.com/alex/django-taggit
