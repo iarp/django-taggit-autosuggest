@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 
-long_description = open('README.txt').read()
+long_description = open('README.rst').read()
 
 
 setup(
@@ -12,7 +12,7 @@ setup(
     long_description=long_description,
     author='Fabian Topfstedt',
     author_email='topfstedt@schneevonmorgen.com',
-    url='https://bitbucket.org/fabian/django-taggit-autosuggest',
+    url='https://github.com/iarp/django-taggit-autosuggest',
     packages=find_packages(),
     include_package_data=True,
     classifiers=[
