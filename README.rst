@@ -8,6 +8,10 @@ is unmaintained since they no longer use it anymore.
 Installation
 ============
 
+Install from repo::
+
+    pip install -e git+https://github.com/iarp/django-taggit-autosuggest.git#egg=taggit_autosuggest
+
 settings.py::
 
     INSTALLED_APPS = [
