@@ -1,15 +1,18 @@
 import copy
 
 from django import forms
-from django.conf import settings
 from django.shortcuts import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+
+try:
+    from django.contrib.staticfiles.templatetags.staticfiles import static
+except ImportError:
+    from django.templatetags.static import static
+
+from .app_settings import CSS_FILENAME, MAX_SUGGESTIONS
 from .utils import edit_string_for_tags
-
-
-MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
 
 
 class TagAutoSuggest(forms.TextInput):
@@ -112,14 +115,12 @@ class TagAutoSuggest(forms.TextInput):
         return result_html + widget_html + mark_safe(js)
 
     class Media:
-        css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME',
-                               'autoSuggest.css')
-        js_base_url = '{}jquery-autosuggest'.format(settings.STATIC_URL)
-
         css = {
-            'all': ('{}/css/{}'.format(js_base_url, css_filename),)
+            'all': (
+                static('jquery-autosuggest/css/{}'.format(CSS_FILENAME)),
+            )
         }
         js = (
-            'admin/js/jquery.init.js',
-            '{}/js/jquery.autoSuggest.minified.js'.format(js_base_url),
+            static('admin/js/jquery.init.js'),
+            static('jquery-autosuggest/js/jquery.autoSuggest.minified.js'),
         )

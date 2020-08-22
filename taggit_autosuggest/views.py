@@ -1,17 +1,7 @@
 from django.apps import apps
-from django.conf import settings
 from django.http import JsonResponse
 
-
-MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
-
-# define the default models for tags and tagged items
-TAG_MODELS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MODELS', None)
-if not isinstance(TAG_MODELS, dict):
-    # TAG_MODELS = {
-    #     'default': ('taggit', 'Tag'),
-    # }
-    TAG_MODELS = None
+from .app_settings import MAX_SUGGESTIONS, TAG_MODELS
 
 
 def list_tags(request, tagmodel=None):
