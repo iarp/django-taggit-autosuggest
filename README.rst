@@ -41,15 +41,16 @@ TAGGIT_AUTOSUGGEST_CSS_FILENAME (='autoSuggest.css'):
   The CSS file have to be in ``jquery-autosuggest/css/``.
 
 TAGGIT_AUTOSUGGEST_MODELS (=None)
-  If you do not supply this then any tagging model can be searched.
+  If you do not supply this then any model can be searched.
   A column with the name of "name" is required.
 
   If you wish to restrict which models can be searched then use the following
   example on the basis of having an app named photos and a model named People which are tags::
 
-    TAGGIT_AUTOSUGGEST_MODELS = {
-        'photos.People': ('photos', 'People'),
-    }
+    TAGGIT_AUTOSUGGEST_MODELS = [
+        'taggit.Tag',  # Ensure default Tag model is there just in case.
+        'photos.People',
+    ]
 
 
 Usage
