@@ -2,6 +2,9 @@
 django-taggit-autosuggest
 =========================
 
+.. image:: https://travis-ci.org/iarp/django-taggit-autosuggest.svg
+   :target: http://travis-ci.org/iarp/django-taggit-autosuggest
+
 Disclaimer: The original project this repo is based on (see Fabian Topfstedt in credits)
 is unmaintained since they no longer use it anymore.
 
