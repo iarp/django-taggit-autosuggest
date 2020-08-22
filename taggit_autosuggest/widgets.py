@@ -1,4 +1,5 @@
 import copy
+
 from django import forms
 from django.conf import settings
 from django.shortcuts import reverse
@@ -26,7 +27,9 @@ class TagAutoSuggest(forms.TextInput):
         elif value is not None and not isinstance(value, str):
             value = edit_string_for_tags(value)
 
-        autosuggest_url = reverse('taggit_autosuggest-list', kwargs={'tagmodel': self.tagmodel})
+        autosuggest_url = reverse('taggit_autosuggest-list', args={
+            'tagmodel': self.tagmodel
+        })
 
         result_attrs = copy.copy(attrs) if attrs else {}
         initial_input_type, self.input_type = self.input_type, 'hidden'
@@ -97,7 +100,7 @@ class TagAutoSuggest(forms.TextInput):
                     });
                 });
             })(django.jQuery);
-            </script>""" % {
+            </script>""" % {  # noqa
                 'result_id': result_attrs['id'],
                 'widget_id': widget_attrs['id'],
                 'url': autosuggest_url,
@@ -109,7 +112,8 @@ class TagAutoSuggest(forms.TextInput):
         return result_html + widget_html + mark_safe(js)
 
     class Media:
-        css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME', 'autoSuggest.css')
+        css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME',
+                               'autoSuggest.css')
         js_base_url = '{}jquery-autosuggest'.format(settings.STATIC_URL)
 
         css = {

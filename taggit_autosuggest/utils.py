@@ -1,3 +1,5 @@
+
+
 def edit_string_for_tags(tags):
     """
     Given list of ``Tag`` instances, creates a string representation of

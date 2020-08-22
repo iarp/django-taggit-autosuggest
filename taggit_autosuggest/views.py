@@ -1,5 +1,3 @@
-import json
-
 from django.apps import apps
 from django.conf import settings
 from django.http import JsonResponse
@@ -37,10 +35,14 @@ def list_tags(request, tagmodel=None):
     field = request.GET.get('f', 'name')
     query = {'{}__icontains'.format(field): query}
 
-    tag_name_qs = TAG_MODEL.objects.filter(**query).values_list(field, flat=True)
+    tag_name_qs = TAG_MODEL.objects.filter(
+        **query
+    ).values_list(field, flat=True)
 
     if callable(getattr(TAG_MODEL, 'request_filter', None)):
-        tag_name_qs = tag_name_qs.filter(TAG_MODEL.request_filter(request)).distinct()
+        tag_name_qs = tag_name_qs.filter(
+            TAG_MODEL.request_filter(request)
+        ).distinct()
 
     data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
 
