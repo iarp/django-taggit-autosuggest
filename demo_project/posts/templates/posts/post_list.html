@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a href="{% url 'admin:index' %}">Django Admin</a>
+
+<h1>Posts</h1>
+
+<ul>
+    {% for post in object_list %}
+        <li><a href="{% url 'posts:update' pk=post.pk %}">{{ post }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>

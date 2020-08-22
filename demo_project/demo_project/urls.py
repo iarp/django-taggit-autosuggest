@@ -1,11 +1,12 @@
-from django.conf.urls import include, url
+from django.urls import path, include
 
 from django.contrib import admin
 admin.autodiscover()
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
-    url(r'^grappelli/', include('grappelli.urls')),
+    path('admin/', admin.site.urls),
+    path('taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    path('grappelli/', include('grappelli.urls')),
+    path('', include('posts.urls')),
 ]
