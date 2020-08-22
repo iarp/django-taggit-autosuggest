@@ -68,8 +68,9 @@ static files are added to the template's head
 
 - You must include jquery above the following
 - add ``{{ form.media }}``
-- OR hardcode using the following two
+- OR hardcode using the following in your templates
     - ``<link href="{% static 'jquery-autosuggest/css/autoSuggest-upshot.css' %}" rel="stylesheet"/>``
+    - ``<script src="{% static 'admin/js/jquery.init.js' %}"></script>``
     - ``<script src="{% static 'jquery-autosuggest/js/jquery.autoSuggest.minified.js' %}"></script>``
 
 Custom Query
