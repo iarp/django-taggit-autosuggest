@@ -18,16 +18,16 @@ class TaggitAutoSuggestTests(TestCase):
         base_url = reverse('taggit_autosuggest-list', args=['taggit.Tag'])
 
         resp = self.client.get('{}?q=test'.format(base_url))
-        self.assertEqual(2, len(json.loads(resp.content)))
+        self.assertEqual(2, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}?q=rock'.format(base_url))
-        self.assertEqual(0, len(json.loads(resp.content)))
+        self.assertEqual(0, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}?q=t'.format(base_url))
-        self.assertEqual(3, len(json.loads(resp.content)))
+        self.assertEqual(3, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}'.format(base_url))
-        self.assertEqual(0, len(json.loads(resp.content)))
+        self.assertEqual(0, len(json.loads(resp.content.decode('utf-8'))))
 
     def test_default_view_with_invalid_model(self):
 
@@ -44,23 +44,23 @@ class TaggitAutoSuggestTests(TestCase):
         base_url = reverse('taggit_autosuggest-list', args=['taggit.Tag'])
 
         resp = self.client.get('{}?q=test'.format(base_url))
-        self.assertEqual(1, len(json.loads(resp.content)))
+        self.assertEqual(1, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}?q=t'.format(base_url))
-        self.assertEqual(1, len(json.loads(resp.content)))
+        self.assertEqual(1, len(json.loads(resp.content.decode('utf-8'))))
 
     def test_limit(self):
 
         base_url = reverse('taggit_autosuggest-list', args=['taggit.Tag'])
 
         resp = self.client.get('{}?q=test&limit=1'.format(base_url))
-        self.assertEqual(1, len(json.loads(resp.content)))
+        self.assertEqual(1, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}?q=t&limit=2'.format(base_url))
-        self.assertEqual(2, len(json.loads(resp.content)))
+        self.assertEqual(2, len(json.loads(resp.content.decode('utf-8'))))
 
         resp = self.client.get('{}?q=t&limit=1'.format(base_url))
-        self.assertEqual(1, len(json.loads(resp.content)))
+        self.assertEqual(1, len(json.loads(resp.content.decode('utf-8'))))
 
     @override_settings(
         TAGGIT_AUTOSUGGEST_MODELS=['test.Test']
