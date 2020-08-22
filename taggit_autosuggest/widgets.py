@@ -27,7 +27,7 @@ class TagAutoSuggest(forms.TextInput):
         elif value is not None and not isinstance(value, str):
             value = edit_string_for_tags(value)
 
-        autosuggest_url = reverse('taggit_autosuggest-list', args={
+        autosuggest_url = reverse('taggit_autosuggest-list', kwargs={
             'tagmodel': self.tagmodel
         })
 
