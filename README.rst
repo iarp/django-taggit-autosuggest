@@ -10,7 +10,7 @@ Installation
 
 Install from repo::
 
-    pip install -e git+https://github.com/iarp/django-taggit-autosuggest.git#egg=taggit_autosuggest
+    pip install -e git+https://github.com/iarp/django-taggit-autosuggest.git#egg=django-taggit-autosuggest
 
 settings.py::
 
