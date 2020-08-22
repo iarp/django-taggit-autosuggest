@@ -11,7 +11,7 @@ try:
 except ImportError:
     from django.templatetags.static import static
 
-from .app_settings import CSS_FILENAME, MAX_SUGGESTIONS
+from . import app_settings
 from .utils import edit_string_for_tags
 
 
@@ -110,14 +110,16 @@ class TagAutoSuggest(forms.TextInput):
                 'start_text': _("Enter Tag Here"),
                 'empty_text': _("No Results"),
                 'limit_text': _('No More Selections Are Allowed'),
-                'retrieve_limit': MAX_SUGGESTIONS,
+                'retrieve_limit': app_settings.MAX_SUGGESTIONS,
             }
         return result_html + widget_html + mark_safe(js)
 
     class Media:
         css = {
             'all': (
-                static('jquery-autosuggest/css/{}'.format(CSS_FILENAME)),
+                static('jquery-autosuggest/css/{}'.format(
+                    app_settings.CSS_FILENAME
+                )),
             )
         }
         js = (

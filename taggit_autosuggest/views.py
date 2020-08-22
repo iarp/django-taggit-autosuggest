@@ -1,26 +1,30 @@
 from django.apps import apps
 from django.http import JsonResponse
 
-from .app_settings import MAX_SUGGESTIONS, TAG_MODELS
+from . import app_settings
 
 
-def list_tags(request, tagmodel=None):
+def list_tags(request, tagmodel):
     """
     Returns a list of JSON objects with a `name` and a `value` property that
     all start like your query string `q` (not case sensitive).
     """
-    if not tagmodel or (TAG_MODELS and tagmodel not in TAG_MODELS):
-        TAG_MODEL = apps.get_model('taggit.Tag')
+    if not tagmodel or (app_settings.TAG_MODELS and
+                        tagmodel not in app_settings.TAG_MODELS):
+        raise LookupError('Invalid lookup model')
     else:
         TAG_MODEL = apps.get_model(tagmodel)
 
-    query = request.GET.get('q', '')
-    limit = request.GET.get('limit', MAX_SUGGESTIONS)
+    query = request.GET.get('q')
+
+    if not query:
+        return JsonResponse({})
+
+    limit = request.GET.get('limit')
     try:
-        request.GET.get('limit', MAX_SUGGESTIONS)
-        limit = min(int(limit), MAX_SUGGESTIONS)  # max or less
-    except ValueError:
-        limit = MAX_SUGGESTIONS
+        limit = int(limit)
+    except (TypeError, ValueError):
+        limit = app_settings.MAX_SUGGESTIONS
 
     queryset_func = getattr(TAG_MODEL, 'taggit_autosuggest_queryset', None)
     if callable(queryset_func):
