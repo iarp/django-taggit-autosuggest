@@ -9,4 +9,4 @@ class PostListView(ListView):
 
 class PostUpdateView(UpdateView):
     model = Post
-    fields = ['title', 'tags']
+    fields = ['title', 'tags', 'people']
