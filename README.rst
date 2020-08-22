@@ -36,13 +36,11 @@ Settings
 TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (=20)
   The number of suggestions to return when searching.
 
-TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
+TAGGIT_AUTOSUGGEST_CSS_FILENAME (='autoSuggest.css'):
   Set the CSS file which best fits your site elements.
   The CSS file have to be in ``jquery-autosuggest/css/``.
 
-TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))
-  The Tag model used, if you happen to use Taggit custom tagging.
-
+TAGGIT_AUTOSUGGEST_MODELS (=None)
   If you do not supply this then any tagging model can be searched.
   A column with the name of "name" is required.
 
@@ -74,18 +72,23 @@ static files are added to the template's head
     - ``<link href="{% static 'jquery-autosuggest/css/autoSuggest-upshot.css' %}" rel="stylesheet"/>``
     - ``<script src="{% static 'jquery-autosuggest/js/jquery.autoSuggest.minified.js' %}"></script>``
 
+Custom Query
+------------
+
 If Taggit custom tagging is used the autosuggested Tags can be filtered by
 attributes of the request object after the name filtering. To enable this
-the custom tag model should have a function called request_filter which
-takes a request object and returns a django.db.models.Q object, e.g.::
+the custom tag model should have a function called taggit_autosuggest_queryset which
+takes a request object and returns a queryset e.g.::
 
     from django.db import models
 
     class MyTag(TagBase):
 
-        @staticmethod
-        def request_filter(request):
-            return models.Q(...)
+        @classmethod
+        def taggit_autosuggest_queryset(cls, request, query):
+            return cls.objects.filter(
+                name__icontains=query
+            ).values_list('name', flat=True)
 
 Demo
 ====

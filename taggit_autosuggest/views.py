@@ -32,18 +32,27 @@ def list_tags(request, tagmodel=None):
     except ValueError:
         limit = MAX_SUGGESTIONS
 
-    field = request.GET.get('f', 'name')
-    query = {'{}__icontains'.format(field): query}
+    queryset_func = getattr(TAG_MODEL, 'taggit_autosuggest_queryset', None)
+    if callable(queryset_func):
+        tag_name_qs = queryset_func(request=request, query=query)
+    else:
 
-    tag_name_qs = TAG_MODEL.objects.filter(
-        **query
-    ).values_list(field, flat=True)
+        field = request.GET.get('f', 'name')
+        query = {'{}__icontains'.format(field): query}
 
-    if callable(getattr(TAG_MODEL, 'request_filter', None)):
-        tag_name_qs = tag_name_qs.filter(
-            TAG_MODEL.request_filter(request)
-        ).distinct()
+        tag_name_qs = TAG_MODEL.objects.filter(
+            **query
+        ).values_list(field, flat=True)
 
-    data = [{'name': n, 'value': n} for n in tag_name_qs[:limit]]
+    data = []
+    for item in tag_name_qs[:limit]:
+
+        # in case someone forgets values_list, obtain the first field.
+        if isinstance(item, tuple):
+            item = item[0]
+        data.append({
+            'name': item,
+            'value': item,
+        })
 
     return JsonResponse(data, safe=False)
