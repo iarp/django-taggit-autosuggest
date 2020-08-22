@@ -57,7 +57,7 @@ TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))
 Usage
 =====
 
-To enable autosuggesting Tags, just let the tagged model use TaggableManager:
+To enable autosuggesting Tags, just let the tagged model use TaggableManager::
 
     from django.db import models
     from taggit_autosuggest.managers import TaggableManager
@@ -69,7 +69,7 @@ To use autosuggesting Tags on your own pages ensure that the
 static files are added to the template's head
 
 - You must include jquery above the following
-- add ```{{ form.media }}```
+- add ``{{ form.media }}``
 - OR hardcode using the following two
     - ``<link href="{% static 'jquery-autosuggest/css/autoSuggest-upshot.css' %}" rel="stylesheet"/>``
     - ``<script src="{% static 'jquery-autosuggest/js/jquery.autoSuggest.minified.js' %}"></script>``
@@ -77,7 +77,7 @@ static files are added to the template's head
 If Taggit custom tagging is used the autosuggested Tags can be filtered by
 attributes of the request object after the name filtering. To enable this
 the custom tag model should have a function called request_filter which
-takes a request object and returns a django.db.models.Q object, e.g.
+takes a request object and returns a django.db.models.Q object, e.g.::
 
     from django.db import models
 
