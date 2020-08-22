@@ -1,15 +1,11 @@
 import copy
-from django import VERSION
 from django import forms
 from django.conf import settings
-if VERSION < (2, 0):
-    from django.core.urlresolvers import reverse
-else:
-    from django.urls import reverse
+from django.shortcuts import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from taggit_autosuggest.utils import edit_string_for_tags
+from .utils import edit_string_for_tags
 
 
 MAX_SUGGESTIONS = getattr(settings, 'TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS', 20)
@@ -20,8 +16,8 @@ class TagAutoSuggest(forms.TextInput):
     tagmodel = None
 
     def __init__(self, tagmodel, *args, **kwargs):
+        super(TagAutoSuggest, self).__init__(*args, **kwargs)
         self.tagmodel = tagmodel
-        return super(TagAutoSuggest, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None, *args, **kwargs):
         if hasattr(value, "select_related"):
@@ -35,24 +31,14 @@ class TagAutoSuggest(forms.TextInput):
         result_attrs = copy.copy(attrs) if attrs else {}
         initial_input_type, self.input_type = self.input_type, 'hidden'
         result_html = super(TagAutoSuggest, self).render(
-            name,
-            value,
-            result_attrs,
-            renderer=renderer,
-            *args,
-            **kwargs
+            name, value, result_attrs, renderer
         )
         self.input_type = initial_input_type
 
         widget_attrs = copy.copy(attrs) if attrs else {}
         widget_attrs['id'] += '__tagautosuggest'
         widget_html = super(TagAutoSuggest, self).render(
-            name,
-            value,
-            widget_attrs,
-            renderer=renderer,
-            *args,
-            **kwargs
+            name, value, widget_attrs, renderer
         )
 
         js = u"""
@@ -123,14 +109,13 @@ class TagAutoSuggest(forms.TextInput):
         return result_html + widget_html + mark_safe(js)
 
     class Media:
-        css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME',
-            'autoSuggest.css')
-        js_base_url = getattr(settings, 'TAGGIT_AUTOSUGGEST_STATIC_BASE_URL',
-            '%sjquery-autosuggest' % settings.STATIC_URL)
+        css_filename = getattr(settings, 'TAGGIT_AUTOSUGGEST_CSS_FILENAME', 'autoSuggest.css')
+        js_base_url = '{}jquery-autosuggest'.format(settings.STATIC_URL)
+
         css = {
-            'all': ('%s/css/%s' % (js_base_url, css_filename),)
+            'all': ('{}/css/{}'.format(js_base_url, css_filename),)
         }
         js = (
             'admin/js/jquery.init.js',
-            '%s/js/jquery.autoSuggest.minified.js' % js_base_url,
+            '{}/js/jquery.autoSuggest.minified.js'.format(js_base_url),
         )

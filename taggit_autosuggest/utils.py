@@ -24,3 +24,10 @@ def edit_string_for_tags(tags):
     names.sort()
     glue = u', '
     return glue.join(names)
+
+
+def get_model_name(model):
+    """
+    The meta.module_name property got deprecated in favor of meta.model_name.
+    """
+    return model._meta.object_name
