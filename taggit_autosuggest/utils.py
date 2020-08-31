@@ -24,7 +24,7 @@ def edit_string_for_tags(tags):
         else:
             names.append(name)
     names.sort()
-    glue = u', '
+    glue = u','
     return glue.join(names)
 
 
