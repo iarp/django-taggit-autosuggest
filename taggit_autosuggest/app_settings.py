@@ -25,6 +25,10 @@ class AppSettings(object):
             TAG_MODELS = []
         return TAG_MODELS
 
+    @property
+    def OPERAND(self):
+        return self._setting('OPERAND', '__icontains')
+
 
 # Ugly? Guido recommends this himself ...
 # http://mail.python.org/pipermail/python-ideas/2012-May/014969.html

@@ -32,7 +32,7 @@ def list_tags(request, tagmodel):
     else:
 
         field = request.GET.get('f', 'name')
-        query = {'{}__icontains'.format(field): query}
+        query = {'{}{}'.format(field, app_settings.OPERAND): query}
 
         tag_name_qs = TAG_MODEL.objects.filter(
             **query
