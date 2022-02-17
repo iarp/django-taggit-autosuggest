@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from .views import list_tags
 
 
 urlpatterns = [
-    url(r'^list/(?P<tagmodel>[\._\w]+)/$', list_tags,
-        name='taggit_autosuggest-list'),
+    re_path(r'^list/(?P<tagmodel>[\._\w]+)/$', list_tags,
+            name='taggit_autosuggest-list'),
 ]

@@ -98,7 +98,7 @@ takes a request object and returns a queryset e.g.::
 Demo
 ====
 
-There's a demo project using Grappelli bundled, you can run it and browse
+There's a demo project using django-Grappelli bundled, you can run it and browse
 /admin/ using the username 'demo' and password 'demo'.
 
 Credits
